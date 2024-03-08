@@ -97,26 +97,54 @@ def create_crate(x_width, z_depth, spacing, num_boards):
     cs.polyDelVertex('corner_ba_l.vtx[5]')
     cs.polyDelVertex('corner_ba_l.vtx[7]')
     # combine sides and delete history (cleanup)
-
-
-'''
-    cs.polyUnite('boardR', 'boardR1', 'boardR2', name='rSide')
+    rSide = cs.polyUnite('boardR', 'boardR1', name='rSide', o=True)
     cs.DeleteHistory()
-    cs.polyUnite(' boardL', 'boardL1', 'boardL2', name='lSide')
+    lSide = cs.polyUnite('boardL', 'boardL1', name='lSide', o=True)
     cs.DeleteHistory()
-    cs.polyUnite('boardF', 'boardF1', 'boardF2', name='fSide')
+    fSide = cs.polyUnite('boardF', 'boardF1', name='fSide', o=True)
     cs.DeleteHistory()
-    cs.polyUnite('boardBa', 'boardBa1', 'boardBa2', name='baSide')
+    baSide = cs.polyUnite('boardBa', 'boardBa1', name='baSide', o=True)
     cs.DeleteHistory()
-    cs.polyUnite('boardBo', 'boardBo1', 'boardBo2', name='boSide')
+    boSide = cs.polyUnite('boardBo', 'boardBo1', name='boSide', o=True)
     cs.DeleteHistory()
-
-    cs.polyUnite('rSide', 'lSide', 'fSide', 'baSide', 'boSide')
+    
+    for i in range(2, num_boards):
+        cs.polyUnite('rSide', 'boardR' + str(i), name='rSide', o=True, ch=False)
+        cs.DeleteHistory()
+        cs.rename('rSide')
+        cs.polyUnite('lSide', 'boardL' + str(i), name='lSide', o=True, ch=False)
+        cs.DeleteHistory()
+        cs.rename('lSide')
+        cs.polyUnite('fSide', 'boardF' + str(i), name='fSide', o=True, ch=False)
+        cs.DeleteHistory()
+        cs.rename('fSide')
+        cs.polyUnite('baSide', 'boardBa' + str(i), name='baSide', o=True, ch=False)
+        cs.DeleteHistory()
+        cs.rename('baSide')
+        cs.polyUnite('boSide', 'boardBo' + str(i), name='boSide', o=True, ch=False)
+        cs.DeleteHistory()
+        cs.rename('boSide')
+       
+    #cs.polyUnite('boardR', 'boardR1', 'boardR2', name='rSide')
+    #cs.DeleteHistory()
+    #cs.polyUnite(' boardL', 'boardL1', 'boardL2', name='lSide')
+    #cs.DeleteHistory()
+    #cs.polyUnite('boardF', 'boardF1', 'boardF2', name='fSide')
+    #cs.DeleteHistory()
+    #cs.polyUnite('boardBa', 'boardBa1', 'boardBa2', name='baSide')
+    #cs.DeleteHistory()
+    #cs.polyUnite('boardBo', 'boardBo1', 'boardBo2', name='boSide')
+   # cs.DeleteHistory()
+    cs.polyUnite('corner_ba_r', 'corner_fr', 'corner_ba_l', 'corner_fl', name='corners')
     cs.DeleteHistory()
-
-'''
-create_crate(.7, 3, .3, 3)
-
-
-def create_window():
-
+    cs.polyUnite('rSide', 'lSide', 'fSide', 'baSide', 'boSide', 'corners')
+    '''
+    if num_boards > 2:
+        cs.polyUnite('rSide', 'lSide', 'fSide', 'baSide', 'boSide', 'corners')
+        #cs.polyUnite('rSide_og', 'lSide_og', 'fSide_og', 'baSide_og', 'boSide_og', 'corners')
+    else:
+        #cs.polyUnite('rSide', 'lSide', 'fSide', 'baSide', 'boSide', 'corners')
+        cs.polyUnite('rSide_og', 'lSide_og', 'fSide_og', 'baSide_og', 'boSide_og', 'corners')
+    '''
+    cs.DeleteHistory()
+    
