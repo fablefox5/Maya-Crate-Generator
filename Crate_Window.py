@@ -69,7 +69,7 @@ def ui_window():
     #fourth row
     cs.setParent(m_layout)
     cs.rowLayout(numberOfColumns=2, adjustableColumn=2)
-    cs.text(label='number of boards')
+    cs.text(label='number of boards (min 2)')
     num_boards_text_field = cs.textField()
     cs.textField(num_boards_text_field, edit=True, text=num_boards_value)
 
@@ -79,4 +79,4 @@ def ui_window():
     cs.showWindow(window)
 
 
-ui_window()
+#ui_window()
